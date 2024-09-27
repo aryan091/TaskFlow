@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+      { "source": "/tasks", "destination": "/index.html" },
+      { "source": "/create-task", "destination": "/index.html" },
+      { "source": "/(.*)", "destination": "/index.html" }
+    ]
+  }
+  
