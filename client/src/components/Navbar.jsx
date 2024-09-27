@@ -66,7 +66,7 @@ const NavBar = () => {
             {toggleDropDown && (
               <div className="dropdown">
                
-                <Link to="/tasks" className="dropdown_link" onClick={() => setToggleDropDown(false)}>
+                <Link to="/create-task" className="dropdown_link" onClick={() => setToggleDropDown(false)}>
                   Create Task
                 </Link>
                 <button

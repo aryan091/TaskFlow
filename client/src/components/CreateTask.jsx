@@ -103,7 +103,7 @@ const CreateTask = () => {
 
     return (
         <div className="task-modal fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-30">
-            <div className="task-modal-content bg-white rounded-lg shadow-lg w-[644px] h-[596px] p-6 flex flex-col justify-between relative">
+            <div className="task-modal-content bg-white rounded-lg shadow-lg w-[90%] max-w-[644px] h-auto max-h-[80%] p-6 flex flex-col justify-between relative">
                 <form className="flex flex-col flex-grow" onSubmit={handleSubmit}>
                     <div className="flex-grow">
                         <div className="task-title mb-4">
@@ -119,13 +119,13 @@ const CreateTask = () => {
                                 onChange={(event) => setTitle(event.target.value)}
                             />
                         </div>
-
-                        <div className="task-checklist flex flex-col h-[14rem] mb-4 flex-grow">
+    
+                        <div className="task-checklist flex flex-col h-[14rem] mb-4 flex-grow overflow-y-auto">
                             <span className="block text-gray-700 text-sm font-bold mb-2">
                                 Checklist ({checkedCount}/{checklist.length}){" "}
                                 <span className="text-red-500">*</span>
                             </span>
-                            <div className="task-checklist-items flex flex-col space-y-2 overflow-y-auto custom-scrollbar">
+                            <div className="task-checklist-items flex flex-col space-y-2">
                                 {checklist.map((item, index) => (
                                     <div key={index} className="task-checklist-item flex items-center border border-gray-300 p-2 rounded-xl mb-2">
                                         <input
@@ -138,7 +138,8 @@ const CreateTask = () => {
                                             type="text"
                                             value={item.item}
                                             onChange={(e) => handleChecklistItemChange(index, e.target.value)}
-                                            className="ml-2 px-2 py-1 flex-grow w-[576px] h-5"
+                                            className="ml-2 px-2 py-1 flex-grow w-full"
+                                            placeholder="Checklist Item"
                                         />
                                         {checklist.length > 1 && (
                                             <button
@@ -158,7 +159,7 @@ const CreateTask = () => {
                                 <IoMdAdd
                                     size={16}
                                     color="#767575"
-                                    className="cursor-pointer display-none mt-1"
+                                    className="cursor-pointer mt-1"
                                     onClick={handleAddChecklistItem}
                                 />
                             </div>
@@ -171,35 +172,35 @@ const CreateTask = () => {
                             </button>
                         </div>
                     </div>
-
+    
                     {Object.keys(errors).length > 0 && (
                         <p className="text-red-500 text-center font-bold text-sm mt-1">
                             All * fields are mandatory
                         </p>
                     )}
-
-                    <div className="task-modal-actions mt-4 flex justify-between relative">
-                        <div className="task-modal-buttons space-x-4">
+    
+                    <div className="task-modal-actions mt-4 flex flex-col md:flex-row justify-between relative">
+                        <div className="task-modal-buttons gap-4 sm:gap-[17rem] flex flex-col md:flex-row justify-between">
                             <button
                                 type="button"
-                                className="task-cancel border border-solid border-[#CF3636] w-40 h-11 text-[#CF3636] py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline font-bold shadow-lg"
+                                className="task-cancel border border-solid border-[#CF3636] w-full md:w-40 h-11 text-[#CF3636] py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline font-bold shadow-lg"
                                 onClick={handleCloseModal}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
-                                className="task-save w-40 h-11 bg-[#17A2B8] text-white py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline shadow-lg font-bold"
+                                className="task-save w-full md:w-40 h-11 bg-[#17A2B8] text-white py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline shadow-lg font-bold"
                             >
                                 {state?.edit ? "Save" : "Create"}
                             </button>
-                            
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     );
+    
 };
 
 export default CreateTask;
