@@ -1,4 +1,4 @@
-import React, { useRef, useState , useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -15,13 +15,26 @@ const LoginRegister = () => {
     if (currentUser) {
       navigate('/tasks');
     }
-  }, [currentUser, navigate]); 
-  const handleButtonClick = async (e) => {
-    e.preventDefault(); 
+  }, [currentUser, navigate]);
 
-    try {
-      if (isSignInForm) {
-        const loginResponse = await login(emailRef.current.value, passwordRef.current.value);
+  const handleButtonClick = async (e) => {
+    e.preventDefault();
+    setErrorMessage(''); // Reset error message
+
+    // Validate input fields
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const name = nameRef.current?.value;
+
+    if (isSignInForm) {
+      // Sign-in validation
+      if (!email || !password) {
+        setErrorMessage('Email and Password are required.');
+        return;
+      }
+
+      try {
+        const loginResponse = await login(email, password);
         
         if (loginResponse.error) {
           setErrorMessage(loginResponse.error); 
@@ -31,12 +44,19 @@ const LoginRegister = () => {
         console.log('Login successful!', loginResponse.data);
         navigate('/tasks'); 
 
-      } else {
-        const registerResponse = await register(
-          nameRef.current.value, 
-          emailRef.current.value, 
-          passwordRef.current.value
-        );
+      } catch (error) {
+        console.error('An unexpected error occurred:', error);
+        setErrorMessage('An unexpected error occurred. Please try again.'); 
+      }
+    } else {
+      // Registration validation
+      if (!name || !email || !password) {
+        setErrorMessage('Full Name, Email, and Password are required.');
+        return;
+      }
+
+      try {
+        const registerResponse = await register(name, email, password);
 
         if (registerResponse.error) {
           setErrorMessage(registerResponse.error); 
@@ -45,11 +65,11 @@ const LoginRegister = () => {
 
         console.log('Registration successful!', registerResponse.data);
         navigate('/tasks'); 
-      }
 
-    } catch (error) {
-      console.error('An unexpected error occurred:', error);
-      setErrorMessage(errorMessage); 
+      } catch (error) {
+        console.error('An unexpected error occurred:', error);
+        setErrorMessage('An unexpected error occurred. Please try again.'); 
+      }
     }
   };
 
