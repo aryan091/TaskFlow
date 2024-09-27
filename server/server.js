@@ -7,7 +7,7 @@ app.use(cors(
 ));
 app.use(express.json());
 
-const PORT = 5000;
+const PORT = process.env.PORT  || 5000;
 
 // Simulated delay function
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));

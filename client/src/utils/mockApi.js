@@ -15,7 +15,7 @@ const saveTasksToStorage = (tasks) => {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
-const API_URL = 'http://localhost:5000'; // The base URL for the mock API
+const API_URL = import.meta.env.VITE_BACKEND_URL; // The base URL for the mock API
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
