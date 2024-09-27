@@ -1,5 +1,5 @@
 import TaskFeed from "./TaskFeed";
-import CreateTask from "./Createtask";
+import CreateTask from "./CreateTask";
 const Home = () => {
   return (
     <section className="w-full flex-center flex-col">
